@@ -5,15 +5,17 @@
         width="200" 
         style="display: block; margin: 0 auto" />
 
-LoRaBridge provides range extension to ZigBee sensors via LoRaWAN. This way, users can deploy sensors to locations which
-are usually hard to reach with a short/medium range wireless connection, e.g. cellars/attics/garden houses. 
+LoRaBridge provides range extension to ZigBee based automations and sensor data collection. This way, users can install smart devices to locations which
+are usually hard to reach with e.g. home WLAN, e.g. cellars/attics/garden houses. In LoRaBridge a long-range wireless connection (LoRaWAN) is used to exchange
+data between user and a remote location. 
+
 
 <img src="assets/lorabridge_frontpage_system_diagram.png" 
         alt="System diagram" 
         style="display: block; margin: 0 auto" />
 
-Here you can find information on setting up your first
-bridge and gateway units, connecting sensors and visualizing sensor data. Details on system architecture and software components for customization/further development are provided as well.
+Here you can find information on: 1) setting up your first
+bridge and gateway units, 2) how to use automation configuration user interface (LoRaMation) and 3) how to visualize sensor data. Details on system architecture and software components for customization/further development are provided as well.
 
 # Table of Contents
 1. [Installation](setup/Installation.md)
