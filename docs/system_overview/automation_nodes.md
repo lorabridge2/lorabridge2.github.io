@@ -41,7 +41,7 @@ Logical OR function for boolean data.
 ![Timer](../assets/uinode_timer_switch.png)
 
 *Brief description*:
-Switches a device on (e.g. light bulb) between start/stop time period. A switch off message is sent outside the set time period.
+Switches a device on (e.g. light bulb) inside the start/stop time period. Otherwise, a switch off message is sent.
 
 *Output*: Boolean value
 
@@ -91,7 +91,7 @@ A user can set simple string notifications, which are sent as soon as a notifica
 ![Notification](../assets/uinode_value_filter.png)
 
 *Brief description*:
-This node passes input data to output based on a selected comparison operation. Example: If temperature input value is greater than a set value, the
+This node passes data based on a selected comparison operation. Example: If temperature input value is greater than a set value, the
 input is forwarded to the output. 
 
 *Input*: Boolean/numeric value

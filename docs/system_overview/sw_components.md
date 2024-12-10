@@ -26,9 +26,13 @@ The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provid
 
 [Redis](https://redis.io/) is an in-memory data store and is used as a cache / message queue in our case. It receives compressed sensor data from the [Forwarder](#forwarder) and holds the data until [LoRaWAN TX](#lorawan-tx) retrieves it.
 
-### LoRaWAN TX
+### Bridge LoRaWAN Interface
 
-[LoRaWAN TX](https://github.com/lorabridge/bridge-lorawan_tx) is a self-provided C program, which is based on the [IBM LMIC](https://github.com/mcci-catena/ibm-lmic) code. It establishes a LoRaWAN connection to the gateway, pulls compressed device data from the [Redis](#redis) server and transmits the data to the gateway.
+[LoRaWAN TX](https://github.com/lorabridge2/bridge-lorawan-interface) is a python program, which acts as an interface between the physical LoRaWAN modem and the software components on the bridge. It has three main tasks: 1) Bridge system time synchronization via TimeSyncRequest feature of LoRaWAN 1.0.3. 2) Listening to downlink data events and forwarding the data towards automation manager 3) Fetching compressed device data and user/system events from [Redis](#redis) and pushing them towards the gateway. 
+
+## Automation manager
+
+[Automation manager](https://github.com/lorabridge2/bridge-automation-manager) performs decompression of automation configuration commands, stores automations in an intermediate data structure and ultimately composes NodeRED flows and uploads them to NodeRED.   
 
 ### Web Interface
 
@@ -47,10 +51,6 @@ The [SSE server](https://github.com/lorabridge/bridge-device-sse) is a self-prov
 ### Basic Auth
 
 This component consists of a nginx and provides authentication for the [web interface](#web-interface) via Basic HTTP Authentication.
-
-### LCD UI
-
-The [LCD UI](https://github.com/lorabridge/bridge-lcd-ui) controls the LCD display on the LoRaWAN hat and display various information like how many devices are joined, the state of the LoRaWAN connection and the current ip address. It also provides the ability to allow zigbee devices to join, by pressing the right button below the display. Informations is retrieved via [Redis](#redis), [Mosquitto](#eclipse-mosquitto) and [Ofelia](#ofelia).
 
 ### Ofelia
 
