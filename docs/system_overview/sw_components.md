@@ -12,7 +12,7 @@ As shown [here](hw_components.md#bridge), a bridge needs a ZigBee dongle for con
 
 ### Zigbee2MQTT
 
-[Zigbee2MQTT](https://www.zigbee2mqtt.io/) receives device data from the ZigBee dongle as it handles join events, status updates and so on. It keeps a list of devices and publishes the device data via MQTT messages to [Eclipse Mosquitto](#eclipse-mosquitto).
+[Zigbee2MQTT](https://www.zigbee2mqtt.io/) exchanges device data with the ZigBee dongle as it handles join events, status updates and so on. It keeps a list of devices and publishes the device data via MQTT messages to [Eclipse Mosquitto](#eclipse-mosquitto).
 
 ### Eclipse Mosquitto
 
@@ -26,11 +26,19 @@ The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provid
 
 [Redis](https://redis.io/) is an in-memory data store and is used as a cache / message queue in our case. It receives compressed sensor data from the [Forwarder](#forwarder) and holds the data until [LoRaWAN TX](#lorawan-tx) retrieves it.
 
+### Bridge LoRaWAN Interface watcher
+
+TODO: Add description
+
 ### Bridge LoRaWAN Interface
 
 [LoRaWAN TX](https://github.com/lorabridge2/bridge-lorawan-interface) is a python program, which acts as an interface between the physical LoRaWAN modem and the software components on the bridge. It has three main tasks: 1) Bridge system time synchronization via TimeSyncRequest feature of LoRaWAN 1.0.3. 2) Listening to downlink data events and forwarding the data towards automation manager 3) Fetching compressed device data and user/system events from [Redis](#redis) and pushing them towards the gateway. 
 
-## Automation manager
+### NodeRED
+
+[NodeRED](https://github.com/lorabridge2/bridge-node-red) implements user defined automations. MQTT is used for interfacing Zigbee devices and Redis (via NodeRED Redis add-on) for interfacing LoRaBridge events.
+
+### Automation manager
 
 [Automation manager](https://github.com/lorabridge2/bridge-automation-manager) performs decompression of automation configuration commands, stores automations in an intermediate data structure and ultimately composes NodeRED flows and uploads them to NodeRED.   
 
@@ -66,6 +74,14 @@ This component consists of a nginx and provides authentication for the [web inte
     The <span style="color:#000000;">black</span> arrows in the gateway diagram above show the direct communation paths. The <span style="color:#8C8C8C;">grey</span> arrows symbolize the logical communication flow, while the <span style="color:#6C8EBF;">blue</span> arrows represent data persistence.
 
 As shown [here](hw_components.md#gateway), a gateway needs a LoRaWAN hat for establishing links to the bridges as well as optionally a network connection.
+
+### Gateway Flow UI
+
+TODO: Add description
+
+### Gateway Flow Manager
+
+TODO: Add description
 
 ### Packet Forwarder
 
