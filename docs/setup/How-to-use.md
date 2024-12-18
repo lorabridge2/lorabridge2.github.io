@@ -4,13 +4,12 @@ This page contains the basic information on how to use LoRaBridge bridge and gat
 
 # Pair a sensor device
 
-![Locations](../assets/pairing_procedure.jpg)
+![Locations](../assets/enable_pairing.png)
 
 Before proceeding with Zigbee device pairing, the Bridge unit needs to be set into pairing mode. To do so,
-as the first step toggle the 3rd push button on the Raspberry PI LoRa modem as displayed in the figure above. This enables pairing
+navigate to (IP address of bridge unit):3000 and select "Enable Zigbee Join" from the configuration tab. This enables pairing
 mode for the Zigbee coordinator for 5 minutes during which the bridge unit accepts pairing of new devices. Now, a new
 device can be paired, which is typically established with a pairing button (see zigbee2mqtt device documentations/device manufacturer manuals for details).
-Successful pairing event is displayed on the LCD display of the Bridge unit. 
 
 # Set sensor/meta data filters
 
@@ -22,6 +21,15 @@ the amount of data transmitted from the bridge unit to the gateway unit. The bri
 allows for disabling/enabling routing of data/meta data. For instance, if a user is only interested in monitoring the illuminance and
 the occupancy status of a motion sensor, the irrelevant measurements such as voltage/battery level can be left disabled. The
 easiest way to access the bridge www interface is to navigate to (IP address of bridge unit):3000.
+
+# Use LoRaMation to configure automations
+
+![Locations](../assets/how_to_loramation.png)
+
+With the LoRaMation extension users can define and deploy automations at ease. The LoRaMation user interface can be found at (gateway IP address):3000, which
+offers a user experience similar to the one of the NodeRED, but with less interactable components. From the left-hand side, a user can select input/output devices
+and automation nodes to be applied into an automation flow (canvas in the middle). On the right-hand side a user can select between a list of automation configurations.
+On top, buttons for undo/redo as well as deployment to NodeRED can be found. For descriptions of individual LoRaMation nodes, refer to [Automation nodes](../system_overview/automation_nodes.md)
 
 # Inspect sensor data in Home Assistant
 

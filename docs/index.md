@@ -1,6 +1,6 @@
 # LoRaBridge Documentation
 
-<img src="assets/loradatabridge_logo_large.png" 
+<img src="assets/lorabridge2_logo_large.png" 
         alt="Logo" 
         width="200" 
         style="display: block; margin: 0 auto" />
@@ -10,7 +10,7 @@ are usually hard to reach with e.g. home WLAN, e.g. cellars/attics/garden houses
 data between user and a remote location. 
 
 
-<img src="assets/lorabridge_frontpage_system_diagram.png" 
+<img src="assets/lorabridge2_frontpage_system_diagram.png" 
         alt="System diagram" 
         style="display: block; margin: 0 auto" />
 

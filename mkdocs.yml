@@ -18,7 +18,9 @@ nav:
   - System Overview:
     - system_overview/hw_components.md
     - system_overview/sw_components.md
+    - system_overview/automation_nodes.md
   - Development:
     - development/dev.md
   - Additional:
     - additional/technical.md
+    - additional/compression_rules.md
