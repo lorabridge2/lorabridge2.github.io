@@ -231,5 +231,6 @@ Your device should now be up and running. It might take a while until device has
 
 ## Verify system functionality
 
-Pair a sensor with the bridge unit following the instructions [here](How-to-use.md#pair-a-sensor-device).  
-After the sensor transmits data (either after waiting or manually triggering it), the data should show up in the Home Assistant interface as shown [here](How-to-use.md#inspect-sensor-data-in-home-assistant).
+For testing the system functionality the first time, it is useful to connect the both bridge and the gateway raspberry PIs e.g. into a local LAN network. This way, you can monitor more closely the behaviour of the both units and if necessary, perform some fine tuning. 
+As both units are up and running, pair a sensor with the bridge unit following the instructions [here](How-to-use.md#pair-a-sensor-device).  
+After the sensor transmits data (either after waiting or manually triggering it), the data should show up in the Home Assistant interface as shown [here](How-to-use.md#inspect-sensor-data-in-home-assistant). Finally, configure a simple automation via [LoRaMation](How-to-use.md#Use-LoRaMation-to-configure-automations) and deploy it to the Bridge. After deployment, verify the creation of a corresponding NodeRED flow at (bridge IP address):1880.  
