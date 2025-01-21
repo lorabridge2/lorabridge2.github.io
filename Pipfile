@@ -8,6 +8,8 @@ mkdocs = "*"
 pymdown-extensions = "*"
 mkdocs-include-markdown-plugin = "*"
 mkdocs-material = "*"
+mdx-truly-sane-lists = "*"
+mkdocs-glightbox = "*"
 
 [dev-packages]
 
