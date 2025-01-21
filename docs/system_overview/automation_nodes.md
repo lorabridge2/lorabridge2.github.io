@@ -13,6 +13,7 @@ Sensor node provides sensor data from Zigbee devices.
 *Output*: Numeric/boolean value
 
 *Parameters*:
+
 - Device name: Zigbee devices' name as they appear in Zigbee2MQTT Zigbee bridge
 - Attribute name: Device attribute, e.g. temperature.
 
@@ -46,6 +47,7 @@ Switches a device on (e.g. light bulb) inside the start/stop time period. Otherw
 *Output*: Boolean value
 
 *Parameters*:
+
 - Start-time: Time (hh:mm) at which first "switch on" message is sent.
 - Stop-time: Time (hh:mm) at which last "switch on" message is sent.
 
@@ -61,6 +63,7 @@ and produces a boolean output to control a device (e.g. a heater). If a sensor v
 *Output*: Boolean value
 
 *Parameters*:
+
 - Min-value: Minimum threshold value (numeric float)
 - Max-value: Maximum threshold value (numeric float)
 
@@ -75,6 +78,7 @@ Switches a device on (e.g. light bulb) for a period of time based on a binary in
 *Output*: Boolean value
 
 *Parameters*:
+
 - Counter value: Seconds (integer value) to switch a device on.
 
 ## Notification
@@ -105,5 +109,6 @@ Output node is a control input to binary Zigbee devices such as light bulbs.
 *Input*: Boolean value
 
 *Parameters*:
+
 - Device name: Zigbee devices' name as they appear in Zigbee2MQTT Zigbee bridge
 - Attribute name: Device attribute, e.g. state.
