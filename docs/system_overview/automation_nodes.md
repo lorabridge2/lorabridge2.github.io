@@ -101,6 +101,8 @@ input is forwarded to the output.
 *Input*: Boolean/numeric value
 *Output*: Boolean/numeric value
 
+## Output
+
 ![Output](../assets/uinode_output_device.png)
 
 *Brief description*:
