@@ -66,12 +66,19 @@ This component consists of a nginx and provides authentication for the [web inte
 
 ## Gateway
 
-![Gateway](../assets/Gateway.drawio.svg)
+=== "Logic Connections"
+
+    ![Gateway](../assets/Gateway_logic.drawio.svg)
+
+=== "Direct Connections"
+
+    ![Gateway](../assets/Gateway_direct.drawio.svg)
 
 > [Butix](https://commons.wikimedia.org/wiki/User:Butix), based on works by [Lucasbosch](https://commons.wikimedia.org/wiki/User:Lucasbosch) and [Cmykey](https://commons.wikimedia.org/wiki/User:Cmykey), [Raspberry Pi 3 illustration](https://commons.wikimedia.org/wiki/File:Raspberry_Pi_3_illustration.svg), modified, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 >
 !!! note
-    The <span style="color:#000000;">black</span> arrows in the gateway diagram above show the direct communation paths. The <span style="color:#8C8C8C;">grey</span> arrows symbolize the logical communication flow, while the <span style="color:#6C8EBF;">blue</span> arrows represent data persistence.
+    The <span style="color:#8C8C8C;">grey</span> arrows symbolize the logical communication flow.
+    The <span style="color:#000000;">black</span> and <span style="color:#994C00;">brownie</span> colored arrows in the gateway diagram above show the direct communation paths. 
 
 As shown [here](hw_components.md#gateway), a gateway needs a LoRaWAN hat for establishing links to the bridges as well as optionally a network connection.
 
