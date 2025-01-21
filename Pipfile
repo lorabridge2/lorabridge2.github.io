@@ -7,6 +7,7 @@ name = "pypi"
 mkdocs = "*"
 pymdown-extensions = "*"
 mkdocs-include-markdown-plugin = "*"
+mkdocs-material = "*"
 
 [dev-packages]
 
