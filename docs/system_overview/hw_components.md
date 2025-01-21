@@ -1,7 +1,7 @@
 # Hardware components
 
 All components necessary to build LoRaBridge bridge and gateway units are listed below. *Please note: the components listed here are the ones used to build
-the first proof-of-concept LoRaBridge implementation with verified functionality*. Some components such as different Raspberry PI models, other Zigbee coordinator sticks or alternative LoRa modems (supporting by LMIC node) might work out-of-the-box. Other components like external LoRaWAN gateways may require adjustments to the LoRaBridge software.
+the first proof-of-concept LoRaBridge implementation with verified functionality*. Some components such as different Raspberry PI models, other Zigbee coordinator sticks or alternative LoRa modems (supporting by [LMIC node](https://github.com/lnlp/LMIC-node)) might work out-of-the-box. Other components like external LoRaWAN gateways may require adjustments to the LoRaBridge software.
 
 ## Table of components
 
@@ -24,7 +24,7 @@ To set up a bridge you need:
 - LilyGo LoRa32 Dongle ESP32 433/868/915MHZ 0.96 Inch OLED
 - CC2652RB Zigbee USB development stick
 
-![Bridge](../assets/Bridge.png)
+![Bridge](../assets/lb2_bridge_photo.jpg)
 
 ___
 
