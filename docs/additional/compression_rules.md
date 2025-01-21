@@ -91,3 +91,12 @@ an InputNode Input (list index to input attributes)
 *Description*:
 Provides update to a node parameter (ParameterID is a list index to parameter list in LoRaBridge automation JSON file). NumBytes
 defines the amount of bytes contained in the Content field. Type field defines the content data type (boolean,integer, float, string).
+
+## Get Devices
+
+| Action  | Unused  |
+|---|---|
+|  13  | B  |
+
+*Description*:
+Requests the bridge to send information about all known devices.
