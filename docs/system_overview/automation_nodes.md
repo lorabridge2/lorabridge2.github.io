@@ -22,7 +22,8 @@ Sensor node provides sensor data from Zigbee devices.
 ![And](../assets/uinode_and.png)
 
 *Brief description*:
-Logical AND function for boolean data.
+<!-- Logical AND function for boolean data. -->
+A logical AND is a Boolean operation that returns true only if both conditions are true.
 
 *Inputs*: Boolean values
 *Output*: Boolean value
@@ -32,7 +33,8 @@ Logical AND function for boolean data.
 ![Or](../assets/uinode_or.png)
 
 *Brief description*:
-Logical OR function for boolean data.
+<!-- Logical OR function for boolean data. -->
+A logical OR is a Boolean operation that returns true if at least one condition is true.
 
 *Inputs*: Boolean values
 *Output*: Boolean value
