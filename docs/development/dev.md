@@ -7,7 +7,7 @@ In order to better separate and organize individual parts of our project, we cre
 You can initially set up the repository with:
 
 ```bash
-git clone --recursive git@github.com:lorabridge/lorabridge.git
+git clone --recursive git@github.com:lorabridge2/lorabridge.git
 ```
 
 Git will clone the main repository `lorabridge` along with all submodules.
@@ -37,7 +37,7 @@ To add a new module, just create a new repository, create stuff and then add you
 You can use following commands:
 
 ```bash
-git submodule add git@github.com:lorabridge/<repo_name>.git <folder-name>
+git submodule add git@github.com:lorabridge2/<repo_name>.git <folder-name>
 git config -f .gitmodules submodule.<repo_name>.update merge
 git add .
 git commit
@@ -60,7 +60,7 @@ Therefore, after each pull `git submodules` detaches the head from main to the s
 ??? example
     `git status` will show something like this inside a submodule:
     ``` bash
-    pi@raspberrypi:~/lorabridge/bridge/bridge-lorawan_tx $ git status
+    pi@raspberrypi:~/lorabridge2/bridge/bridge-lorawan_tx $ git status
     HEAD detached at refs/heads/main
     ```
 

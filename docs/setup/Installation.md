@@ -22,7 +22,7 @@ You need to:
 
 ## Ansible Setup
 
-This setup method automates several steps of the installation process of bridge and gateways devices. You need to clone the [lorabridge-setup](https://github.com/lorabridge/lorabridge-setup) github repository.
+This setup method automates several steps of the installation process of bridge and gateways devices. You need to clone the [lorabridge-setup](https://github.com/lorabridge2/lorabridge-setup) github repository.
 The repository provides an ansible project for setting up LoRaBridge devices via ssh.
 
 You need to prepare the Raspberry Pi devices as described in [Requirements](#requirements).
@@ -32,7 +32,7 @@ You need to prepare the Raspberry Pi devices as described in [Requirements](#req
 Download the code for the Ansible setup and switch inside the folder:
 
 ```bash
-git clone https://github.com/lorabridge/lorabridge-setup.git
+git clone https://github.com/lorabridge2/lorabridge-setup.git
 cd lorabridge-setup
 ```
 
@@ -103,13 +103,13 @@ ansible-playbook -i inventory lorabridge.yaml --ask-become-pass --ask-pass
 
 #### Step 1 - Cloning
 
-Clone our top-level repository [`lorabridge/lorabridge`](https://github.com/lorabridge/lorabridge) either via ssh per  
-`git clone --recursive git@github.com:lorabridge/lorabridge.git`  
+Clone our top-level repository [`lorabridge2/lorabridge`](https://github.com/lorabridge2/lorabridge) either via ssh per  
+`git clone --recursive git@github.com:lorabridge2/lorabridge.git`  
 or via https per  
-`git clone --recursive https://github.com/lorabridge/lorabridge.git`
+`git clone --recursive https://github.com/lorabridge2/lorabridge.git`
 
 !!! info
-    You can also use the new github cli tool `gh repo clone lorabridge/lorabridge -- --recursive` (prior config necessary - see [manual](https://cli.github.com/))
+    You can also use the new github cli tool `gh repo clone lorabridge2/lorabridge -- --recursive` (prior config necessary - see [manual](https://cli.github.com/))
 
 #### Step 2 - Navigation
 
@@ -152,13 +152,13 @@ docker compose up -d
 
 #### Step 1 - Cloning
 
-Clone our top-level repository [`lorabridge/lorabridge`](https://github.com/lorabridge/lorabridge) either via ssh per  
-`git clone --recursive git@github.com:lorabridge/lorabridge.git`  
+Clone our top-level repository [`lorabridge2/lorabridge`](https://github.com/lorabridge2/lorabridge) either via ssh per  
+`git clone --recursive git@github.com:lorabridge2/lorabridge.git`  
 or via https per  
-`git clone --recursive https://github.com/lorabridge/lorabridge.git`
+`git clone --recursive https://github.com/lorabridge2/lorabridge.git`
 
 !!! info
-    You can also use the new github cli tool `gh repo clone lorabridge/lorabridge -- --recursive` (prior config necessary - see [manual](https://cli.github.com/))
+    You can also use the new github cli tool `gh repo clone lorabridge2/lorabridge -- --recursive` (prior config necessary - see [manual](https://cli.github.com/))
 
 #### Step 2 - Navigation
 
