@@ -31,7 +31,6 @@ extra:
 copyright: Copyright &copy; 2025 St. Pölten University of Applied Sciences
 repo_url: https://github.com/lorabridge2
 use_directory_urls: false
-repo_url: https://github.com/lorabridge
 markdown_extensions:
   - admonition
   - pymdownx.details
