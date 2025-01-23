@@ -28,7 +28,11 @@ The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provid
 
 ### Bridge LoRaWAN Interface watcher
 
-TODO: Add description
+[LoRaWAN Interface Watcher](https://github.com/lorabridge2/bridge-lorawan-interface-watcher) is a Python3 program that regularly checks the status of the [LoRaWAN Interface](#bridge-lorawan-interface) and restarts the container, if it crashed. Furthermore, it sends a notification to the Gateway via a system event. It uses the Docker API via a socket.
+
+> Docker should restart containers automatically when they crash using the restart policy we configured. 
+> Unfortunately, Docker refuses to do so, when a device needed by the container is missing. 
+> As our desired behaviour would be to restart the container as soon as the device is readded, we chose to implement it using our [LoRaWAN Interface Watcher](#bridge-lorawan-interface-watcher).
 
 ### Bridge LoRaWAN Interface
 
@@ -44,7 +48,7 @@ TODO: Add description
 
 ### Web Interface
 
-Our [web interface](https://github.com/lorabridge/bridge-device-interface) is a self-provided [SvelteKit](https://kit.svelte.dev/) web application that shows the ZigBee devices, which are retrieved via the [SSE server](#sse-server). It enables you to disable unnecessary sensor attributes, in order to further reduce the transmitted data. Authentication is provided with [basic auth](#basic-auth) via nginx.
+Our [web interface](https://github.com/lorabridge/bridge-device-interface) is a self-provided [SvelteKit](https://svelte.dev/docs/kit/introduction) web application that shows the ZigBee devices, which are retrieved via the [SSE server](#sse-server). It enables you to disable unnecessary sensor attributes, in order to further reduce the transmitted data. Authentication is provided with [basic auth](#basic-auth) via nginx.
 
 !!! info
     The default port via [Basic Auth](#basic-auth)  is `3000`
@@ -84,11 +88,35 @@ As shown [here](hw_components.md#gateway), a gateway needs a LoRaWAN hat for est
 
 ### Gateway Flow UI
 
-TODO: Add description
+The web interface is based on the [SvelteKit](https://svelte.dev/docs/kit/introduction) web application framework in combination with the [Svelte UI](https://svelte.dev/docs/svelte/overview) component framework. The interface uses [Flowbite Svelte](https://flowbite-svelte.com/) for individual UI components (such as styled buttons) and [Svelte Flow](https://svelteflow.dev/) for flow visualization.
+
+To enable undo functionality, individual versions of a flow are stored in a [CouchDB](https://couchdb.apache.org/) database, which resides locally in the browser. Furthermore, the changes are synchronized with a [CouchDB database on the gateway](#couchdb). This allows flows to be modified offline and uploaded later, ensuring no data is lost if the internet connection is lost.
+
+??? info "Usage"
+    We placed special emphasis on the usability of the user interface to make the creation of automations as intuitive as possible. For this purpose, the layout of the interface was built on well-known, commonly used structures.
+
+    At the top, there is a menu bar where settings can be configured, and actions can be executed. The rest of the area is divided into three columns.
+
+    The left column contains the available [automation nodes](automation_nodes.md) (graphical elements for constructing the flow diagram) that can be dragged and dropped into the visualization area.
+
+    The middle column is used for visualizing the flow diagram. Here, the previously added nodes can be connected to define the automation process. Additionally, the properties of each node or automation element can be configured via various input fields. Device-related nodes, such as "Sensor" and "Output Device," also provide a list of available devices and the sensor attributes accessible per device.
+
+    The right column is for managing individual flows. Flows can be thought of as simplified files in this context. Accordingly, new flows can be created, and existing flows can be renamed or deleted. Clicking on a specific flow in the right column loads it and displays it in the middle column.
+
+    Changes to the flow diagram are saved automatically and can be undone or redone via the menu bar. Additionally, the flow can also be transferred to the bridge and activated or deactivated via the menu bar.
+
+    The "Status" button opens a dedicated status area that contains messages from the bridge, such as critical error messages.
 
 ### Gateway Flow Manager
 
-TODO: Add description
+To integrate the [web interface](#gateway-flow-ui) into the system, the Flow Manager was created as a standalone Python3 component. The Flow Manager loads flows from the Redis database, which are stored there by the web interface when deploying the flows. It compares new versions with the previous version, if applicable, and generates the necessary compressed [action commands](../additional/compression_rules.md). These commands are transmitted to the bridge, where they are converted into the actual Node-RED flow by the [Automation Manager](#automation-manager). After transmission, the correctness of the transferred flow is verified on both sides via a checksum comparison.
+
+### CouchDB
+
+[CouchDB](https://couchdb.apache.org/) is a document-oriented NoSQL database with an emphasis on synchronization. It is used by the [Flow UI](#gateway-flow-ui) as an in browser instance for storing each change (version) of a flow created via the webinterface. Furthermore, the changes are synchronized with a CouchDB instance on the gateway. This allows flows to be modified offline and uploaded later, ensuring no data is lost if the internet connection is lost.
+
+> We created our [own CouchDB Docker image](https://github.com/lorabridge2/couchdb-docker), as there is no prebuilt image for armhf (32 bit) systems. This image is only used for the database on gateway.
+
 
 ### Packet Forwarder
 
