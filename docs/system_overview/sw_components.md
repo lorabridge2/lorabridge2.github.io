@@ -20,7 +20,7 @@ As shown [here](hw_components.md#bridge), a bridge needs a ZigBee dongle for con
 
 ### Forwarder
 
-The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provided Python3 program and listens to message on the [Mosquitto](#eclipse-mosquitto) server. It removes disabled attributes (a list that can be modified via the [web interface](#web-interface)) and performes a combination of key substitution, [YAML](https://yaml.org/) reformatting and [Brotli](https://github.com/google/brotli) compression. The resulting compressed data is pushed to a list in a [Redis](#redis) server.
+The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provided Python3 program and listens to message on the [Mosquitto](#eclipse-mosquitto) server. It removes disabled attributes (a list that can be modified via the [web interface](#web-interface)), substitutes known attibute keys as well as reformats and compresses the data by using the [MessagePack](https://msgpack.org/) format. The resulting compressed data is pushed to a list in a [Redis](#redis) server.
 
 ### Redis
 
@@ -36,7 +36,13 @@ The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provid
 
 ### Bridge LoRaWAN Interface
 
-[LoRaWAN TX](https://github.com/lorabridge2/bridge-lorawan-interface) is a python program, which acts as an interface between the physical LoRaWAN modem and the software components on the bridge. It has three main tasks: 1) Bridge system time synchronization via TimeSyncRequest feature of LoRaWAN 1.0.3. 2) Listening to downlink data events and forwarding the data towards automation manager 3) Fetching compressed device data and [user](../additional/data_types.md#user-event)/[system](../additional/data_types.md#system-event) events from [Redis](#redis) and pushing them towards the gateway. 
+[LoRaWAN TX](https://github.com/lorabridge2/bridge-lorawan-interface) is a python program, which acts as an interface between the physical LoRaWAN modem and the software components on the bridge. 
+
+It has three main tasks:
+
+1. Bridge system time synchronization via TimeSyncRequest feature of LoRaWAN 1.0.3. 
+2. Listening to downlink data events and forwarding the data towards automation manager 
+3. Fetching compressed device data and [user](../additional/data_types.md#user-event)/[system](../additional/data_types.md#system-event) events from [Redis](#redis) and pushing them towards the gateway. 
 
 ### NodeRED
 
@@ -44,7 +50,7 @@ The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provid
 
 ### Automation manager
 
-[Automation manager](https://github.com/lorabridge2/bridge-automation-manager) performs decompression of automation configuration commands, stores automations in an intermediate data structure and ultimately composes NodeRED flows and uploads them to NodeRED.   
+[Automation manager](https://github.com/lorabridge2/bridge-automation-manager) performs decompression of [automation configuration commands](../additional/compression_rules.md), stores automations in an intermediate data structure and ultimately composes NodeRED flows and uploads them to NodeRED.   
 
 ### Web Interface
 
@@ -81,8 +87,8 @@ This component consists of a nginx and provides authentication for the [web inte
 > [Butix](https://commons.wikimedia.org/wiki/User:Butix), based on works by [Lucasbosch](https://commons.wikimedia.org/wiki/User:Lucasbosch) and [Cmykey](https://commons.wikimedia.org/wiki/User:Cmykey), [Raspberry Pi 3 illustration](https://commons.wikimedia.org/wiki/File:Raspberry_Pi_3_illustration.svg), modified, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 >
 !!! note
-    The <span style="color:#8C8C8C;">grey</span> arrows symbolize the logical communication flow.
-    The <span style="color:#000000;">black</span> and <span style="color:#994C00;">brownie</span> colored arrows in the gateway diagram above show the direct communation paths. 
+    The <span style="color:light-dark(#8C8C8C, #757575);font-weight:bold;">grey</span> arrows symbolize the logical communication flow.
+    The <span style="color:light-dark(#000000, #ffffff);font-weight:bold;">black/white</span> and <span style="color:light-dark(#994C00, #db9958);font-weight:bold;">brownie/orange</span> colored arrows in the gateway diagram above show the direct communation paths. 
 
 As shown [here](hw_components.md#gateway), a gateway needs a LoRaWAN hat for establishing links to the bridges as well as optionally a network connection.
 
