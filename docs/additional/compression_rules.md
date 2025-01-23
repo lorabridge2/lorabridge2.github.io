@@ -1,6 +1,6 @@
 # Compression rules
 
-LoRaBridge automation manager uses compression rules to minimize the LoRaWAN downlink communication required to transfer automations to a bridge unit. Data fields (in bytes) of each instruction accompanied with brief descriptions are given below.
+LoRaBridge [automation manager](../system_overview/sw_components.md#automation-manager) uses compression rules to minimize the LoRaWAN downlink communication required to transfer automations to a bridge unit. Data fields (in bytes) of each instruction accompanied with brief descriptions are given below.
 
 ## Add flow
 | Action  | FlowID  |

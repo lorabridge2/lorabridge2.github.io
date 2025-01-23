@@ -175,3 +175,9 @@ Our [Home Assitant](https://github.com/lorabridge/gateway-home-assistant) is a p
 
 ??? example
     ![Home Assistant web interface](../assets/HomeAssistant.png)
+
+## LoRaWAN module (LilyGo LoRa32 Dongle)
+
+### Firmware
+
+The [firmware](https://github.com/lorabridge2/bridge-lorawan-tx) for the ESP32-based LoRaWAN module (LilyGo LoRa32 Dongle) performs two tasks. First, it retrieves sensor/device data from the [bridge forwarder](#forwarder) over the [LoRaWAN Interface container](#bridge-lorawan-interface) via a serial USB interface and sends it to [ChirpStack](#chirpstack) over a LoRaWAN connection. Second, compressed automation configuration packages are transmitted to the module via LoRaWAN downlink (as part of MAC commands and ACK packets). If no device data is scheduled for uplink transmission, the firmware sends a "heartbeat" packet to enable periodic downlink communication.

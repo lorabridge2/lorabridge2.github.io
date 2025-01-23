@@ -58,5 +58,6 @@ nav:
   - Additional:
     - additional/technical.md
     - additional/compression_rules.md
+    - additional/data_types.md
   - Legal Information:
     - legal.md
