@@ -159,7 +159,7 @@ The [ChirpStack Gateway Bridge](https://www.chirpstack.io/docs/chirpstack-gatewa
 
 ### Converter
 
-The [Converter](https://github.com/lorabridge/gateway-converter) is a self-provided Python3 application, which listens for the device data published by the [ChirpStack Gateway Bridge](#chirpstack-gateway-bridge) via MQTT message on the [Mosquitto](#eclipse-mosquitto-gateway). It decompresses the data, undoes the key substitution and reformats the data. Afterwards, the data is published back to the [Mosquitto](#eclipse-mosquitto-gateway) server.
+The [Converter](https://github.com/lorabridge/gateway-converter) is a self-provided Python3 application, which listens for device data and [other types of messages](../additional/data_types.md) published by the [ChirpStack Gateway Bridge](#chirpstack-gateway-bridge) via MQTT message on the [Mosquitto](#eclipse-mosquitto-gateway). For the device data type, it decompresses the data, undoes the key substitution and reformats the data. Afterwards, the data is published back to the [Mosquitto](#eclipse-mosquitto-gateway) server. Other types of message are processed accordingly and passed to other service either via [Redis](#redis-gateway) or [Mosquitto](#eclipse-mosquitto-gateway).
 
 ### Device Manager
 
