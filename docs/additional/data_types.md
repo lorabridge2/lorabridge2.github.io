@@ -2,18 +2,6 @@
 
 LoRaBridge [LoRaWAN Interface](../system_overview/sw_components.md#bridge-lorawan-interface) and [Gateway Converter](../system_overview/sw_components.md#converter) know different types of messages that are send from the bridge to the gateway. The different data types accompanied with brief descriptions are given below.
 
-```python
-class lbdata_types(IntEnum):
-    data = 7
-    timesync_req = 1
-    system_event = 2
-    user_event = 3
-    lbflow_digest = 4
-    lbdevice_join = 5
-    heartbeat = 6
-    lbdevice_name = 8
-```
-
 ## Data
 | Type  | Data  |
 |---|---|
