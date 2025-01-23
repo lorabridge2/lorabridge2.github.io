@@ -74,7 +74,7 @@ Used by the [Automation Manager](../system_overview/sw_components.md#automation-
 
 ## Heartbeat
 | Type  |
-|---|---|
+|---|
 |  6  |
 
 *Description*:
