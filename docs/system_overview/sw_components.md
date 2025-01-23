@@ -107,6 +107,9 @@ To enable undo functionality, individual versions of a flow are stored in a [Cou
 
     The "Status" button opens a dedicated status area that contains messages from the bridge, such as critical error messages.
 
+!!! info
+    The default port is `3000`
+
 ### Gateway Flow Manager
 
 To integrate the [web interface](#gateway-flow-ui) into the system, the Flow Manager was created as a standalone Python3 component. The Flow Manager loads flows from the Redis database, which are stored there by the web interface when deploying the flows. It compares new versions with the previous version, if applicable, and generates the necessary compressed [action commands](../additional/compression_rules.md). These commands are transmitted to the bridge, where they are converted into the actual Node-RED flow by the [Automation Manager](#automation-manager). After transmission, the correctness of the transferred flow is verified on both sides via a checksum comparison.
