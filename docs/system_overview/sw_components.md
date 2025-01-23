@@ -36,7 +36,7 @@ The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provid
 
 ### Bridge LoRaWAN Interface
 
-[LoRaWAN TX](https://github.com/lorabridge2/bridge-lorawan-interface) is a python program, which acts as an interface between the physical LoRaWAN modem and the software components on the bridge. It has three main tasks: 1) Bridge system time synchronization via TimeSyncRequest feature of LoRaWAN 1.0.3. 2) Listening to downlink data events and forwarding the data towards automation manager 3) Fetching compressed device data and user/system events from [Redis](#redis) and pushing them towards the gateway. 
+[LoRaWAN TX](https://github.com/lorabridge2/bridge-lorawan-interface) is a python program, which acts as an interface between the physical LoRaWAN modem and the software components on the bridge. It has three main tasks: 1) Bridge system time synchronization via TimeSyncRequest feature of LoRaWAN 1.0.3. 2) Listening to downlink data events and forwarding the data towards automation manager 3) Fetching compressed device data and [user](../additional/data_types.md#user-event)/[system](../additional/data_types.md#system-event) events from [Redis](#redis) and pushing them towards the gateway. 
 
 ### NodeRED
 
@@ -180,4 +180,4 @@ Our [Home Assitant](https://github.com/lorabridge/gateway-home-assistant) is a p
 
 ### Firmware
 
-The [firmware](https://github.com/lorabridge2/bridge-lorawan-tx) for the ESP32-based LoRaWAN module (LilyGo LoRa32 Dongle) performs two tasks. First, it retrieves sensor/device data from the [bridge forwarder](#forwarder) over the [LoRaWAN Interface container](#bridge-lorawan-interface) via a serial USB interface and sends it to [ChirpStack](#chirpstack) over a LoRaWAN connection. Second, compressed automation configuration packages are transmitted to the module via LoRaWAN downlink (as part of MAC commands and ACK packets). If no device data is scheduled for uplink transmission, the firmware sends a "heartbeat" packet to enable periodic downlink communication.
+The [firmware](https://github.com/lorabridge2/bridge-lorawan-tx) for the ESP32-based LoRaWAN module (LilyGo LoRa32 Dongle) performs two tasks. First, it retrieves sensor/device data from the [bridge forwarder](#forwarder) over the [LoRaWAN Interface container](#bridge-lorawan-interface) via a serial USB interface and sends it to [ChirpStack](#chirpstack) over a LoRaWAN connection. Second, compressed automation configuration packages are transmitted to the module via LoRaWAN downlink (as part of MAC commands and ACK packets). If no device data is scheduled for uplink transmission, the firmware sends a [heartbeat packet](../additional/data_types.md#heartbeat) to enable periodic downlink communication.
