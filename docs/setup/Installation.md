@@ -19,10 +19,16 @@ You need to:
 - [Install docker and docker compose](https://docs.docker.com/engine/install/ubuntu/) [manual setup]
 - install `git` (via `sudo apt-get install git`) [manual setup]
 - enable spi (via `sudo raspi-config nonint do_spi 0`) [manual setup]
+- install `esptool.py` on the bridge via [pip](https://pypi.org/project/esptool/) or [binary](https://github.com/espressif/esptool/releases)
+
+!!! info
+    The setup was tested with Raspberry Pi OS based on **Debian 12 Bookworm**.
+
+    You can flash the OS onto the sd card with e.g. [Raspberry Pi Imager](https://www.raspberrypi.com/software/). It can also add wifi configuration or static IP addresses.
 
 ## Ansible Setup
 
-This setup method automates several steps of the installation process of bridge and gateways devices. You need to clone the [lorabridge-setup](https://github.com/lorabridge2/lorabridge-setup) github repository.
+This setup method automates several steps of the installation process of bridge and gateways devices. You need to clone the [setup](https://github.com/lorabridge2/setup) github repository.
 The repository provides an ansible project for setting up LoRaBridge devices via ssh.
 
 You need to prepare the Raspberry Pi devices as described in [Requirements](#requirements).
@@ -32,8 +38,8 @@ You need to prepare the Raspberry Pi devices as described in [Requirements](#req
 Download the code for the Ansible setup and switch inside the folder:
 
 ```bash
-git clone https://github.com/lorabridge2/lorabridge-setup.git
-cd lorabridge-setup
+git clone https://github.com/lorabridge2/setup.git
+cd setup
 ```
 
 ### Ansible Controller Requirements
@@ -44,8 +50,15 @@ You need to install the requirements listed in following files inside the reposi
 - `Pipfile`
 - `requirements.yml`
 
-!!! tip "Installing Requirements"
-    Install requirements with e.g.
+!!! tip "Debian based distros" 
+    Install requirements via script
+    
+    ```bash
+    ./requirements.sh
+    ```
+
+!!! tip "Manual installation"
+    Install requirements manually with e.g.
 
     ```bash
     xargs apt install -y < apt-requirements.txt
@@ -65,6 +78,11 @@ Copy the `inventory.sample` file, name it `inventory` and Replace the placeholde
 [gateways]
 <gateway ip address> hostname=<desired hostname>
 ```
+
+!!! tip "Identifying devices"
+    First, get the IP addresses of the devices e.g. via checking your router, dhcp server or configuring static IPs using the Raspberry Pi Imager.
+
+    To identify which device is the gateway or the bridge, establish a ssh connection and check the devices in `/dev`. Using the default hardware setup described in [Hardware](../system_overview/hw_components.md), only the bridge has a `/dev/ttyUSB0` and a `/dev/ttyACM0` device.
 
 ### Configuration Variables
 
@@ -114,22 +132,40 @@ or via https per
 #### Step 2 - Navigation
 
 Navigate into the repository with `cd lorabridge`.  
-If you are setting up a bridge do `cd bridge`.
 
-#### Step 3 - Configuration
+#### Step 3a - Config via Script
+
+Execute `./create_env.sh` which will create the necessary environment variables (`.env` files) for the bridge and the gateway. You need to copy the `.env` file of the other device (e.g. `lorabridge/gateway/.env` if you execute the script on the bridge) to the same location on the respective device. 
+
+!!! tip Copy per scp
+    You can use the `scp` command to copy the file
+
+    ```bash
+    # inside the lorabridge directory
+    scp gateway/.env pi@<ip.of.gate.way>:/lb/path/lorabridge/gateway
+    ```
+
+#### Step 3b - Manual config
+
+If you are setting up a bridge do `cd bridge`.
 
 Copy `env.example` to `.env` and modify variables in `.env` as necessary, see [config](config.md#Environment-variables) for further details.
 
 Following variables need to be changed for a __bridge__ device:
 
 - `LORA_DEV_EUI`
+- `LORA_JOIN_EUI`
 - `LORA_DEV_KEY`
 - `BASIC_AUTH`
+- `GID_DOCKER`
 
 !!! info
     variables are automatically substituted in `docker-compose.yml` file
 
-#### Step 4 - Container creation
+#### Step 4 - Flash esp32 firmware
+Execute `./prepare_esp.sh` on the **bridge** to flash the firmware onto the esp32 device.
+
+#### Step 5 - Container creation
 
 ##### Pre-built images
 
@@ -163,9 +199,14 @@ or via https per
 #### Step 2 - Navigation
 
 Navigate into the repository with `cd lorabridge`.  
-If you are setting up a bridge do `cd gateway`.
 
-#### Step 3 - Configuration
+#### Step 3a - Config via Script
+
+If you already used `create_env.sh` on the bridge, then copy the `lorabridge/gateway/.env` file to the same location on your gateway. Otherwise follow the steps decribed [here](#step-3a-config-via-script) and then copy `lorabridge/bridge/.env` to your bridge instead.
+
+#### Step 3b - Manual config
+
+If you are setting up a gateway do `cd gateway`.
 
 Copy `env.example` to `.env` and modify variables in `.env` as necessary, see [config](config.md#Environment-variables) for further details.
 
@@ -174,6 +215,9 @@ Following variables need to be changed, when setting up a __gateway__:
 - `CHIRPSTACK_DEV_EUI`
 - `CHIRPSTACK_DEV_KEY`
 - `CHIRPSTACK_API_SECRET`
+- `CHIRPSTACK_PASSWORD`
+- `CHIRPSTACK_HASH`
+- `COUCHDB_PASSWORD`
 
 !!! info
     variables are automatically substituted in `docker-compose.yml` file

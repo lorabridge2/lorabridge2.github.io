@@ -20,7 +20,7 @@ As shown [here](hw_components.md#bridge), a bridge needs a ZigBee dongle for con
 
 ### Forwarder
 
-The [Forwarder](https://github.com/lorabridge/bridge-forwarder) is a self-provided Python3 program and listens to message on the [Mosquitto](#eclipse-mosquitto) server. It removes disabled attributes (a list that can be modified via the [web interface](#web-interface)), substitutes known attibute keys as well as reformats and compresses the data by using the [MessagePack](https://msgpack.org/) format. The resulting compressed data is pushed to a list in a [Redis](#redis) server.
+The [Forwarder](https://github.com/lorabridge2/bridge-forwarder) is a self-provided Python3 program and listens to message on the [Mosquitto](#eclipse-mosquitto) server. It removes disabled attributes (a list that can be modified via the [web interface](#web-interface)), substitutes known attibute keys as well as reformats and compresses the data by using the [MessagePack](https://msgpack.org/) format. The resulting compressed data is pushed to a list in a [Redis](#redis) server.
 
 ### Redis
 
@@ -64,7 +64,7 @@ Our [web interface](https://github.com/lorabridge/bridge-device-interface) is a 
 
 ### SSE Server
 
-The [SSE server](https://github.com/lorabridge/bridge-device-sse) is a self-provided TypeScript application. It retrieves a list of ZigBee devices from the [Zigbee2MQTT](#zigbee2mqtt) server and provides the data per HTTP as well as any updates to the data (e.g. new devices, additional attributes) per [server-sent events (SSE)](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) for the [web interface](#web-interface).
+The [SSE server](https://github.com/lorabridge2/bridge-device-sse) is a self-provided TypeScript application. It retrieves a list of ZigBee devices from the [Zigbee2MQTT](#zigbee2mqtt) server and provides the data per HTTP as well as any updates to the data (e.g. new devices, additional attributes) per [server-sent events (SSE)](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) for the [web interface](#web-interface).
 
 ### Basic Auth
 
@@ -94,7 +94,7 @@ As shown [here](hw_components.md#gateway), a gateway needs a LoRaWAN hat for est
 
 ### Gateway Flow UI
 
-The web interface is based on the [SvelteKit](https://svelte.dev/docs/kit/introduction) web application framework in combination with the [Svelte UI](https://svelte.dev/docs/svelte/overview) component framework. The interface uses [Flowbite Svelte](https://flowbite-svelte.com/) for individual UI components (such as styled buttons) and [Svelte Flow](https://svelteflow.dev/) for flow visualization.
+The [web interface](https://github.com/lorabridge2/gateway-flow-ui) is based on the [SvelteKit](https://svelte.dev/docs/kit/introduction) web application framework in combination with the [Svelte UI](https://svelte.dev/docs/svelte/overview) component framework. The interface uses [Flowbite Svelte](https://flowbite-svelte.com/) for individual UI components (such as styled buttons) and [Svelte Flow](https://svelteflow.dev/) for flow visualization.
 
 To enable undo functionality, individual versions of a flow are stored in a [CouchDB](https://couchdb.apache.org/) database, which resides locally in the browser. Furthermore, the changes are synchronized with a [CouchDB database on the gateway](#couchdb). This allows flows to be modified offline and uploaded later, ensuring no data is lost if the internet connection is lost.
 
@@ -118,7 +118,7 @@ To enable undo functionality, individual versions of a flow are stored in a [Cou
 
 ### Gateway Flow Manager
 
-To integrate the [web interface](#gateway-flow-ui) into the system, the Flow Manager was created as a standalone Python3 component. The Flow Manager loads flows from the Redis database, which are stored there by the web interface when deploying the flows. It compares new versions with the previous version, if applicable, and generates the necessary compressed [action commands](../additional/compression_rules.md). These commands are transmitted to the bridge, where they are converted into the actual Node-RED flow by the [Automation Manager](#automation-manager). After transmission, the correctness of the transferred flow is verified on both sides via a checksum comparison.
+To integrate the [web interface](#gateway-flow-ui) into the system, the [Flow Manager](https://github.com/lorabridge2/gateway-flow-manager) was created as a standalone Python3 component. The Flow Manager loads flows from the Redis database, which are stored there by the web interface when deploying the flows. It compares new versions with the previous version, if applicable, and generates the necessary compressed [action commands](../additional/compression_rules.md). These commands are transmitted to the bridge, where they are converted into the actual Node-RED flow by the [Automation Manager](#automation-manager). After transmission, the correctness of the transferred flow is verified on both sides via a checksum comparison.
 
 ### CouchDB
 
@@ -126,10 +126,13 @@ To integrate the [web interface](#gateway-flow-ui) into the system, the Flow Man
 
 > We created our [own CouchDB Docker image](https://github.com/lorabridge2/couchdb-docker), as there is no prebuilt image for armhf (32 bit) systems. This image is only used for the database on gateway.
 
+### Connection Watcher
+
+The [Connection watcher](https://github.com/lorabridge2/gateway-connection-watcher) is a self-provided Python3 application, that uses the [Chirpstack](#chirpstack) API to retrieve the timestamp when the bridge was seen last.
 
 ### Packet Forwarder
 
-The [Packet Forwarder](https://github.com/lorabridge/gateway-forwarder) is a self-provided C application based on [this repository](https://github.com/fhessel/dragino_pi_gateway_fwd) that interacts with the LoRaWAN hat. It receives the LoRaWAN packets and publishes the data to the [ChirpStack Gateway Bridge](#chirpstack-gateway-bridge) on port `1700/udp`.
+The [Packet Forwarder](https://github.com/lorabridge2/gateway-forwarder) is a self-provided C application based on [this repository](https://github.com/fhessel/dragino_pi_gateway_fwd) that interacts with the LoRaWAN hat. It receives the LoRaWAN packets and publishes the data to the [ChirpStack Gateway Bridge](#chirpstack-gateway-bridge) on port `1700/udp`.
 
 ### Eclipse Mosquitto (Gateway)
 
@@ -159,22 +162,22 @@ The [ChirpStack Gateway Bridge](https://www.chirpstack.io/docs/chirpstack-gatewa
 
 ### Converter
 
-The [Converter](https://github.com/lorabridge/gateway-converter) is a self-provided Python3 application, which listens for device data and [other types of messages](../additional/data_types.md) published by the [ChirpStack Gateway Bridge](#chirpstack-gateway-bridge) via MQTT message on the [Mosquitto](#eclipse-mosquitto-gateway). For the device data type, it decompresses the data, undoes the key substitution and reformats the data. Afterwards, the data is published back to the [Mosquitto](#eclipse-mosquitto-gateway) server. Other types of message are processed accordingly and passed to other service either via [Redis](#redis-gateway) or [Mosquitto](#eclipse-mosquitto-gateway).
+The [Converter](https://github.com/lorabridge2/gateway-converter) is a self-provided Python3 application, which listens for device data and [other types of messages](../additional/data_types.md) published by the [ChirpStack Gateway Bridge](#chirpstack-gateway-bridge) via MQTT message on the [Mosquitto](#eclipse-mosquitto-gateway). For the device data type, it decompresses the data, undoes the key substitution and reformats the data. Afterwards, the data is published back to the [Mosquitto](#eclipse-mosquitto-gateway) server. Other types of message are processed accordingly and passed to other service either via [Redis](#redis-gateway) or [Mosquitto](#eclipse-mosquitto-gateway).
 
 ### Device Manager
 
-The [Device Manager](https://github.com/lorabridge/gateway-device_manager) is a self-provided Python3 application keeping track of the seen devices via the [Redis](#redis-gateway) server. It publishes MQTT messages on the [Mosquitto](#eclipse-mosquitto-gateway) server for device discovery events and status (data) updates. These messages are picked up by the [HA Integration](#ha-integration) service.
+The [Device Manager](https://github.com/lorabridge2/gateway-device_manager) is a self-provided Python3 application keeping track of the seen devices via the [Redis](#redis-gateway) server. It publishes MQTT messages on the [Mosquitto](#eclipse-mosquitto-gateway) server for device discovery events and status (data) updates. These messages are picked up by the [HA Integration](#ha-integration) service.
 
 ### HA Integration
 
-The [HA Integration](https://github.com/lorabridge/gateway-ha_integration) is a self-provided Python3 application. It translates the MQTT messages sent by the [Device Manager](#device-manager) into messages understood by the MQTT integration of the [Home Assistant](#home-assistant).
+The [HA Integration](https://github.com/lorabridge2/gateway-ha_integration) is a self-provided Python3 application. It translates the MQTT messages sent by the [Device Manager](#device-manager) into messages understood by the MQTT integration of the [Home Assistant](#home-assistant).
 
 !!! tip
     This additional translation step enables easy integration of other services (e.g. a replacement for [Home Assistant](#home-assistant) or an extra web interface).
 
 ### Home Assistant
 
-Our [Home Assitant](https://github.com/lorabridge/gateway-home-assistant) is a preconfigured version of the [official Home Assistant](https://www.home-assistant.io/), a home automation web interface, and is used to diplay the devices and sensor data. It subscribes to MQTT messages via [Mosquitto](#eclipse-mosquitto-gateway).
+Our [Home Assitant](https://github.com/lorabridge2/gateway-home-assistant) is a preconfigured version of the [official Home Assistant](https://www.home-assistant.io/), a home automation web interface, and is used to diplay the devices and sensor data. It subscribes to MQTT messages via [Mosquitto](#eclipse-mosquitto-gateway).
 
 !!! info
     The default port is `8123`
